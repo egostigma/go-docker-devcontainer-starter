@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        # [Choice] Go version 1, 1.19, 1.18, 1.17
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: "${VARIANT:-1.19-bullseye}"
+        NODE_VERSION: "${NODE_VERSION:-lts/*}"
+        NON_ROOT_USER: "${NON_ROOT_USER:-www}"
+        PORT: "${PORT:-8080}"
+    env_file:
+      - .env
+    # security_opt:
+    #   - seccomp:unconfined
+    # cap_add:
+    #   - SYS_PTRACE
+    image: "${APP_NAME:-go-docker-devcontainer-starter}/go"
+    container_name: "${HOST_NAME:-api.knowledge-management.sygap.telkom.co.id}"
+    ports:
+      - "${FORWARD_PORT:-8080}:${PORT:-8080}"
+    networks:
+      - sygap-network
+    # command: sleep infinity
+    # deploy:
+    #   restart_policy:
+    #     condition: on-failure
+
+# volumes:
+#   dbdata:
+#     driver: local
+
+networks:
+  sygap-network:
+    driver: bridge
