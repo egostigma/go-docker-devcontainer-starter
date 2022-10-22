@@ -21,4 +21,6 @@
 go.work
 
 .env
-.air.toml.example
+.air.toml
+tmp/
+__debug_bin

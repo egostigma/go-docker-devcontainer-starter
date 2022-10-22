@@ -17,12 +17,9 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su ${NON_ROOT_USER} -c "umask 0002 
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 # [Optional] Uncomment the next lines to use go get to install anything else you need
-COPY . /var/www
-COPY --chown=vscode:vscode . /var/www
-USER vscode
-
+USER ${NON_ROOT_USER}
 # RUN go get -x <your-dependency-or-tool>
 RUN go install github.com/cosmtrek/air@latest
 
 # [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+# RUN su ${NON_ROOT_USER} -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
