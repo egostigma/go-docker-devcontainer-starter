@@ -26,9 +26,9 @@ services:
     networks:
       - sygap-network
     # command: sleep infinity
-    # deploy:
-    #   restart_policy:
-    #     condition: on-failure
+    deploy:
+      restart_policy:
+        condition: on-failure
 
 # volumes:
 #   dbdata:

@@ -25,7 +25,7 @@ RUN go mod download
 COPY . /var/www
 
 # Build
-RUN go build -o /build
+RUN go build -o /build ./cmd/app/main.go
 
 COPY --chown=www:www . /var/www
 
